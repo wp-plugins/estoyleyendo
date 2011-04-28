@@ -35,6 +35,9 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 
 == Changelog ==
 
+= 1.4.1 =
+* Error en activación
+
 = 1.4 =
 * Mejora de velocidad y reducción de accesos
 
@@ -52,8 +55,8 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 
 
 == Upgrade Notice ==
-= 1.4 =
-Mejoras de rendimiento y accesibilidad para versiones wordpress 3.1.x
+= 1.4.1 =
+Soluciona un error en la activación
 
 
 == BiblioEteca ==

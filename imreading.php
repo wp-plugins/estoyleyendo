@@ -4,7 +4,7 @@
  Plugin URI: http://blog.biblioeteca.com/widgets-plugins-y-demas/imreading-widget/
  Description: Muestra que libro está leyendo actualmente un usuario biblioEteca
  Author: José Antonio Espinosa
- Version: 1.4
+ Version: 1.4.1
  Author URI: http://www.biblioeteca.com/
  */
 
@@ -82,7 +82,7 @@ class Imreading {
 	while (!@feof($fp)) {
 	  $source .= @fread($fp, 8192);
 	}
-	@fclose($handle);
+	@fclose($fp);
 
 			if (!strpos($source,"No tiene libros"))
 			{
