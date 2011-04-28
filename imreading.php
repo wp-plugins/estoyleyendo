@@ -3,8 +3,8 @@
  Plugin Name: Imreading
  Plugin URI: http://blog.biblioeteca.com/widgets-plugins-y-demas/imreading-widget/
  Description: Muestra que libro está leyendo actualmente un usuario biblioEteca
- Author: Ramón López
- Version: 1.3
+ Author: José Antonio Espinosa
+ Version: 1.4
  Author URI: http://www.biblioeteca.com/
  */
 
@@ -72,15 +72,18 @@ class Imreading {
         }else{
             //Acciones a realizar en caso de que no exista
            $existe= false;
+	   @fclose($fp);
         }
-        @fclose($fp);
 
-
-		$noleo=false;
+	$noleo=false;
         if ($existe){
 		
+	$source = '';
+	while (!@feof($fp)) {
+	  $source .= @fread($fp, 8192);
+	}
+	@fclose($handle);
 
-			$source = file_get_contents($server.$url.$userBiblioeteca)or die('se ha producido un error');
 			if (!strpos($source,"No tiene libros"))
 			{
 				$libros = stristr($source,"<div id=\"biblioeteca\">");
@@ -111,13 +114,25 @@ class Imreading {
 				$noleo=true;
         	}
         }
-        if (!$existe || $noleo)
+	if (!$existe)
+	{
+	        echo "<li class='widget-container widget_text sidebox'>";
+		echo "<h3 class='widget-title'>".$comment.":</h3>";
+	        echo "<br/>";
+	        echo "Problemas de conectividad con BiblioEteca";
+	        echo "<br/>";
+	        echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
+	        echo "</li>";
+
+	}
+
+        if ($noleo)
         
         {
 	        echo "<li class='widget-container widget_text sidebox'>";
 			echo "<h3 class='widget-title'>".$comment.":</h3>";
 	        echo "<br/>";
-	        echo "En este momentno no estoy leyendo nada.";
+	        echo "En este momento no estoy leyendo nada.";
 	        echo "<br/>";
 	        echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
 	        echo "</li>";

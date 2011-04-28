@@ -3,7 +3,7 @@ Contributors: biblioeteca
 Donate link: http://www.biblioeteca.com
 Tags: libros, literatura, lecturas, biblioeteca, leer
 Requires at least: 3.0
-Tested up to: 3.0.1
+Tested up to: 3.1.2
 Stable tag: trunk
 
 Permite visualizar la portada del libro que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en biblioEteca.
@@ -35,6 +35,9 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 
 == Changelog ==
 
+= 1.4 =
+* Mejora de velocidad y reducción de accesos
+
 = 1.3 =
 * Primera version instalable desde el repositorio wordpress
 
@@ -49,8 +52,8 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 
 
 == Upgrade Notice ==
-= 1.3 =
-Actualizar para poder tener acceso a futuras actualizaciones automáticas
+= 1.4 =
+Mejoras de rendimiento y accesibilidad para versiones wordpress 3.1.x
 
 
 == BiblioEteca ==
