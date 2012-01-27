@@ -3,14 +3,14 @@ Contributors: biblioeteca
 Donate link: http://www.biblioeteca.com
 Tags: libros, literatura, lecturas, biblioeteca, leer
 Requires at least: 3.0
-Tested up to: 3.1.2
+Tested up to: 3.1.4
 Stable tag: trunk
 
-Permite visualizar la portada del libro que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en biblioEteca.
+Permite visualizar las portadas de los libros que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en BiblioEteca.
 
 == Description ==
 
-El plugin Imreading (EstoyLeyendo) permite visualizar la portada del libro que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en biblioEteca.
+El plugin Imreading (EstoyLeyendo) permite visualizar las portadas de los libros que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en BiblioEteca.
 
 == Installation ==
 
@@ -32,11 +32,14 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 == Screenshots ==
 
 1. Ejemplo de como se vería en un blog
+2. Ejemplo con multiples entradas
 
 == Changelog ==
 
-= 1.4.1 =
-* Error en activación
+= 1.5 =
+* Cambio en el API para llamar una nueva función de biblioeteca
+* Posibilidad de visualizar múltiples libros leyendo
+* Mejor ajuste con todos los temas de wordpress
 
 = 1.4 =
 * Mejora de velocidad y reducción de accesos
@@ -55,8 +58,9 @@ Apache versión 2, es decir, lo puedes usar como quieras, siempre que reconozcas
 
 
 == Upgrade Notice ==
-= 1.4.1 =
-Soluciona un error en la activación
+
+= 1.5 =
+Ahora se pueden mostrar todos los libros en la lista de leyendo.
 
 
 == BiblioEteca ==

@@ -2,9 +2,9 @@
 /*
  Plugin Name: Imreading
  Plugin URI: http://blog.biblioeteca.com/widgets-plugins-y-demas/imreading-widget/
- Description: Muestra que libro está leyendo actualmente un usuario biblioEteca
+ Description: Muestra los libros está leyendo actualmente un usuario biblioEteca
  Author: José Antonio Espinosa
- Version: 1.4.1
+ Version: 1.5
  Author URI: http://www.biblioeteca.com/
  */
 
@@ -18,7 +18,7 @@ class Imreading {
 
 
 	function activate(){
-		$data = array( 'Usuario' => 'usuarioBiblioEteca','Titulo' => 'Estoy leyendo');
+		$data = array( 'Usuario' => 'usuarioBiblioEteca','Titulo' => 'Estoy leyendo','Noleo' => 'Ahora no estoy leyendo nada');
 		if ( ! get_option('configuracion')){
 			add_option('configuracion' , $data);
 		} else {
@@ -37,11 +37,14 @@ class Imreading {
 	type="text" value="<?php echo $data['Usuario']; ?>" /></label></p>
 <p><label>Titulo/Comentario<input name="configuracion_option2"
 	type="text" value="<?php echo $data['Titulo']; ?>" /></label></p>
+<p><label>Si no leo<input name="configuracion_option3"
+	type="text" value="<?php echo $data['Noleo']; ?>" /></label></p>
 
 		<?php
 		if (isset($_POST['configuracion_option1'])){
 			$data['Usuario'] = attribute_escape($_POST['configuracion_option1']);
 			$data['Titulo'] = attribute_escape($_POST['configuracion_option2']);
+			$data['Noleo'] = attribute_escape($_POST['configuracion_option3']);
 
 			update_option('configuracion', $data);
 		}
@@ -50,6 +53,8 @@ class Imreading {
 
 
 	function widget($args){
+		extract($args);
+		
 		$opciones     = get_option( "configuracion" );
 
 		//con un usuario dado buscamos en su página de "leyendo"
@@ -61,9 +66,11 @@ class Imreading {
 		$server="http://www.biblioeteca.com";
 		//configurable
 		$comment=$opciones['Titulo'];
+		// configurable
+		$noleo=$opciones['Noleo'];
 
 		$existe=false;
-        $url='/biblioeteca.web/libros/leyendo/';
+        $url='/biblioeteca.web/widgets/imreading/';
 
         $fp=@fopen($server.$url.$userBiblioeteca,"r");
         if($fp){
@@ -71,8 +78,8 @@ class Imreading {
            $existe= true;
         }else{
             //Acciones a realizar en caso de que no exista
-           $existe= false;
-	   @fclose($fp);
+           	$existe= false;
+	   		@fclose($fp);
         }
 
 	$noleo=false;
@@ -82,61 +89,36 @@ class Imreading {
 	while (!@feof($fp)) {
 	  $source .= @fread($fp, 8192);
 	}
-	@fclose($fp);
-
-			if (!strpos($source,"No tiene libros"))
+	@fclose($handle);
+	echo $before_widget;
+	echo $before_title.$comment.$after_title;
+			if (strpos($source,"img")>0)
 			{
-				$libros = stristr($source,"<div id=\"biblioeteca\">");
-				$linkLibro = stristr($libros,"<a href=\"");
-				$linkLibro = substr($linkLibro,9,stripos($linkLibro,"\">")-9);
-				$linkLibro=$server.$linkLibro;
-		
-				//cogemos datos como la imagen a mostrar en nuestro widget
-				$otherSource = file_get_contents($linkLibro)or die('se ha producido un error');
-				$imagenes = stristr($otherSource,"<div id=\"libro_portada\">");
-				$linkImagen = stristr($imagenes,"<img src=\"");
-				$linkImagen = substr($linkImagen,10,stripos($linkImagen,"\" class=\"portada\"")-10);
-		
-				$titulo=stristr($otherSource,"<title>");
-				$titulo=substr($titulo,7,stripos($titulo,"- BiblioEteca")-7);
-		
-				echo "<li class='widget-container widget_text sidebox'>";
-				echo "<h3 class='widget-title'>".$comment.":</h3>";
-				echo "<br/>";
-				echo "<a href ='".$linkLibro."'>".$titulo."</a>";
-				echo "<br/>";
-				echo "<a href ='".$linkLibro."'><img src='".$linkImagen."'/></a>";
-				echo "<br/>";
-				echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
-				echo "</li>";
+				echo $source;
 			}
 			else {
 				$noleo=true;
         	}
         }
-	if (!$existe)
-	{
-	        echo "<li class='widget-container widget_text sidebox'>";
-		echo "<h3 class='widget-title'>".$comment.":</h3>";
-	        echo "<br/>";
-	        echo "Problemas de conectividad con BiblioEteca";
-	        echo "<br/>";
-	        echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
-	        echo "</li>";
-
-	}
+        
+		if (!$existe)
+		{
+				
+		        echo "<br/>";
+		        echo "Problemas de conectividad con BiblioEteca";
+		        echo "<br/>";
+		        echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
+		}
 
         if ($noleo)
-        
         {
-	        echo "<li class='widget-container widget_text sidebox'>";
-			echo "<h3 class='widget-title'>".$comment.":</h3>";
 	        echo "<br/>";
-	        echo "En este momento no estoy leyendo nada.";
+	        echo $noleo;
 	        echo "<br/>";
 	        echo "<a href='http://www.biblioeteca.com'>www.biblioEteca.com</a>";
-	        echo "</li>";
         }
+        
+        echo $after_widget;
 	}
 
 	function register(){
