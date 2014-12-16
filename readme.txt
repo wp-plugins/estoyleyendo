@@ -3,7 +3,7 @@ Contributors: biblioeteca
 Donate link: http://www.biblioeteca.com
 Tags: libros, literatura, lecturas, biblioeteca, leer
 Requires at least: 3.0
-Tested up to: 3.1.4
+Tested up to: 4.1.0
 Stable tag: trunk
 
 Permite visualizar las portadas de los libros que el propietario del blog está leyendo en ese momento y un enlace hacia su dirección en BiblioEteca.
